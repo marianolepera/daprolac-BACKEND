@@ -1,0 +1,1215 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Dapolac-backend",
+    "description" : "API REST Proyecto Final de Ingenieria",
+    "contact" : {
+      "email" : "gustavowroldan@gmail.com"
+    },
+    "license" : {
+      "name" : "MIT",
+      "url" : "https://opensource.org/licenses/MIT"
+    },
+    "version" : "2.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://daprolac.herokuapp.com/api/v1"
+  } ],
+  "tags" : [ {
+    "name" : "administradores",
+    "description" : "Operaciones disponibles solo para administradores"
+  } ],
+  "paths" : {
+    "/usuarios" : {
+      "get" : {
+        "tags" : [ "administradores" ],
+        "summary" : "obtener usuarios",
+        "description" : "Regresa todos los usuarios\n",
+        "operationId" : "obtenerUsuarios",
+        "parameters" : [ {
+          "name" : "eager",
+          "in" : "query",
+          "description" : "carga todas las asociaciones",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "obtiene los usuarios segun el criterio aplicado",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Error interno del servidor",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "administradores" ],
+        "summary" : "agregar usuario",
+        "description" : "agregar un nuevo usuario al sistema",
+        "operationId" : "crearUsuario",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "usuario creado",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_201"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "entrada invalida u objeto invalido",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "error email existente",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usuarios/{idUsuario}" : {
+      "get" : {
+        "tags" : [ "administradores" ],
+        "summary" : "obtener usuario por id",
+        "description" : "Regresa un usuario particular\n",
+        "operationId" : "obtenerUsuario",
+        "parameters" : [ {
+          "name" : "idUsuario",
+          "in" : "path",
+          "description" : "Identificador unico del usuario",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "eager",
+          "in" : "query",
+          "description" : "carga todas las asociaciones",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operacion exitosa",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Error interno del servidor",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "administradores" ],
+        "summary" : "actualizar usuario existente",
+        "description" : "actualizar un usuario existente en el sistema",
+        "operationId" : "actualizarUsuario",
+        "parameters" : [ {
+          "name" : "idUsuario",
+          "in" : "path",
+          "description" : "Identificador unico del usuario",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_1"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "usuario actualizado",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "entrada invalida u objeto invalido",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "error email existente",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "administradores" ],
+        "summary" : "eliminar usuario existente",
+        "description" : "eliminar un usuario existente del sistema",
+        "operationId" : "eliminarUsuario",
+        "parameters" : [ {
+          "name" : "idUsuario",
+          "in" : "path",
+          "description" : "Identificador unico del usuario",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "usuario eliminado",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_2"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "error interno del servidor",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/procesos" : {
+      "get" : {
+        "tags" : [ "administradores" ],
+        "summary" : "obtener procesos",
+        "description" : "Regresa todos los procesos\n",
+        "operationId" : "obtenerProcesos",
+        "parameters" : [ {
+          "name" : "eager",
+          "in" : "query",
+          "description" : "carga todas las asociaciones",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "obtiene los procesos segun el criterio aplicado",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_3"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Error interno del servidor",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "administradores" ],
+        "summary" : "agregar proceso",
+        "description" : "agregar un nuevo proceso al sistema",
+        "operationId" : "crearProceso",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_2"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "proceso creado",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_201_1"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "entrada invalida u objeto invalido",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "error interno del servidor",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/procesos/{idProceso}" : {
+      "get" : {
+        "tags" : [ "administradores" ],
+        "summary" : "obtener proceso por id",
+        "description" : "Regresa un proceso particular\n",
+        "operationId" : "obtenerProceso",
+        "parameters" : [ {
+          "name" : "idProceso",
+          "in" : "path",
+          "description" : "Identificador unico del proceso",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "eager",
+          "in" : "query",
+          "description" : "carga todas las asociaciones",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operacion exitosa",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_3"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Error interno del servidor",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "administradores" ],
+        "summary" : "actualizar proceso existente",
+        "description" : "actualizar un proceso existente en el sistema",
+        "operationId" : "actualizarProceso",
+        "parameters" : [ {
+          "name" : "idProceso",
+          "in" : "path",
+          "description" : "Identificador unico del proceso",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_3"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "proceso actualizado",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_4"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "entrada invalida u objeto invalido",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "error interno del servidor",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "administradores" ],
+        "summary" : "eliminar proceso existente",
+        "description" : "eliminar un proceso existente del sistema",
+        "operationId" : "eliminarProceso",
+        "parameters" : [ {
+          "name" : "idProceso",
+          "in" : "path",
+          "description" : "Identificador unico del proceso",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "proceso eliminado",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_5"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "error interno del servidor",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tareas" : {
+      "get" : {
+        "tags" : [ "administradores" ],
+        "summary" : "obtener tareas",
+        "description" : "Regresa todas las tareas\n",
+        "operationId" : "obtenerTareas",
+        "parameters" : [ {
+          "name" : "eager",
+          "in" : "query",
+          "description" : "carga todas las asociaciones",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "obtiene las tareas segun el criterio aplicado",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_6"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Error interno del servidor",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "administradores" ],
+        "summary" : "agregar tarea",
+        "description" : "agregar una nueva tarea al sistema",
+        "operationId" : "crearTarea",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_4"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "proceso creado",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_201_1"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "entrada invalida u objeto invalido",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "error interno del servidor",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tareas/{idTarea}" : {
+      "get" : {
+        "tags" : [ "administradores" ],
+        "summary" : "obtener tarea por id",
+        "description" : "Regresa una tarea particular\n",
+        "operationId" : "obtenerTarea",
+        "parameters" : [ {
+          "name" : "idTarea",
+          "in" : "path",
+          "description" : "Identificador unico de la tarea",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "eager",
+          "in" : "query",
+          "description" : "carga todas las asociaciones",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operacion exitosa",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_6"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Error interno del servidor",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "administradores" ],
+        "summary" : "actualizar tarea existente",
+        "description" : "actualizar una tarea existente en el sistema",
+        "operationId" : "actualizarTarea",
+        "parameters" : [ {
+          "name" : "idTarea",
+          "in" : "path",
+          "description" : "Identificador unico de la tarea",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_5"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "proceso actualizado",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_7"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "entrada invalida u objeto invalido",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "error interno del servidor",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "administradores" ],
+        "summary" : "eliminar tarea existente",
+        "description" : "eliminar una tarea existente del sistema",
+        "operationId" : "eliminarTarea",
+        "parameters" : [ {
+          "name" : "idTarea",
+          "in" : "path",
+          "description" : "Identificador unico de la tarea",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "tarea eliminada",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_8"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "error interno del servidor",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Error" : {
+        "required" : [ "error", "payload", "success" ],
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "payload" : {
+            "type" : "object",
+            "nullable" : true
+          },
+          "error" : {
+            "$ref" : "#/components/schemas/Error_error"
+          }
+        }
+      },
+      "Usuario" : {
+        "required" : [ "apellido", "clave", "email", "id", "nombre", "tipo" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "example" : 251
+          },
+          "nombre" : {
+            "type" : "string",
+            "example" : "Javier"
+          },
+          "apellido" : {
+            "type" : "string",
+            "example" : "Rodriguez"
+          },
+          "email" : {
+            "type" : "string",
+            "format" : "email",
+            "example" : "jrodriguez@mail.com"
+          },
+          "clave" : {
+            "type" : "string",
+            "example" : "Clave123!"
+          },
+          "type" : {
+            "type" : "integer",
+            "description" : "0 - Administrador / 1 - Operario",
+            "enum" : [ 0, 1 ]
+          }
+        }
+      },
+      "Proceso" : {
+        "required" : [ "id", "producto" ],
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "example" : 2
+          },
+          "producto" : {
+            "type" : "string",
+            "example" : "Producto 1"
+          }
+        }
+      },
+      "Tarea" : {
+        "required" : [ "id", "nombre" ],
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "example" : 4
+          },
+          "nombre" : {
+            "type" : "string",
+            "example" : "Tarea 4"
+          },
+          "observaciones" : {
+            "type" : "string",
+            "example" : "Esta tarea especifica..."
+          }
+        }
+      },
+      "inline_response_200" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "payload" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Usuario"
+            }
+          },
+          "error" : {
+            "type" : "object",
+            "nullable" : true
+          }
+        }
+      },
+      "body" : {
+        "required" : [ "apellido", "clave", "email", "nombre" ],
+        "type" : "object",
+        "properties" : {
+          "nombre" : {
+            "type" : "string"
+          },
+          "apellido" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string",
+            "format" : "email"
+          },
+          "clave" : {
+            "type" : "string"
+          },
+          "tipo" : {
+            "type" : "integer",
+            "enum" : [ 0, 1 ]
+          }
+        }
+      },
+      "inline_response_201" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "payload" : {
+            "$ref" : "#/components/schemas/inline_response_201_payload"
+          },
+          "error" : {
+            "type" : "object",
+            "nullable" : true
+          }
+        }
+      },
+      "body_1" : {
+        "type" : "object",
+        "properties" : {
+          "nombre" : {
+            "type" : "string"
+          },
+          "apellido" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string",
+            "format" : "email"
+          },
+          "clave" : {
+            "type" : "string"
+          },
+          "tipo" : {
+            "type" : "integer",
+            "enum" : [ 0, 1 ]
+          }
+        }
+      },
+      "inline_response_200_1" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "payload" : {
+            "$ref" : "#/components/schemas/inline_response_200_1_payload"
+          },
+          "error" : {
+            "type" : "object",
+            "nullable" : true
+          }
+        }
+      },
+      "inline_response_200_2" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "payload" : {
+            "$ref" : "#/components/schemas/inline_response_200_2_payload"
+          },
+          "error" : {
+            "type" : "object",
+            "nullable" : true
+          }
+        }
+      },
+      "inline_response_200_3" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "payload" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Proceso"
+            }
+          },
+          "error" : {
+            "type" : "object",
+            "nullable" : true
+          }
+        }
+      },
+      "body_2" : {
+        "required" : [ "producto" ],
+        "type" : "object",
+        "properties" : {
+          "producto" : {
+            "type" : "string",
+            "example" : "Queso Pategras"
+          }
+        }
+      },
+      "inline_response_201_1" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "payload" : {
+            "$ref" : "#/components/schemas/inline_response_201_1_payload"
+          },
+          "error" : {
+            "type" : "object",
+            "nullable" : true
+          }
+        }
+      },
+      "body_3" : {
+        "required" : [ "producto" ],
+        "type" : "object",
+        "properties" : {
+          "producto" : {
+            "type" : "string"
+          }
+        }
+      },
+      "inline_response_200_4" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "payload" : {
+            "$ref" : "#/components/schemas/inline_response_200_4_payload"
+          },
+          "error" : {
+            "type" : "object",
+            "nullable" : true
+          }
+        }
+      },
+      "inline_response_200_5" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "payload" : {
+            "$ref" : "#/components/schemas/inline_response_200_5_payload"
+          },
+          "error" : {
+            "type" : "object",
+            "nullable" : true
+          }
+        }
+      },
+      "inline_response_200_6" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "payload" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Tarea"
+            }
+          },
+          "error" : {
+            "type" : "object",
+            "nullable" : true
+          }
+        }
+      },
+      "tareas_proceso_tareaAntecesora" : {
+        "required" : [ "diasAntecesora", "horasAntecesora", "idTareaAntecesora", "minutosAntecesora" ],
+        "type" : "object",
+        "properties" : {
+          "idTareaAntecesora" : {
+            "type" : "integer",
+            "description" : "tarea antecesora que se debe cumplir \npara comenzar la actual\n"
+          },
+          "diasAntecesora" : {
+            "type" : "integer",
+            "description" : "dias que deben pasar para comenzar esta \ntarea luego de finalizada la antecesora.\n"
+          },
+          "horasAntecesora" : {
+            "type" : "integer",
+            "description" : "horas que deben pasar para comenzar esta \ntarea luego de finalizada la antecesora.\n"
+          },
+          "minutosAntecesora" : {
+            "type" : "integer",
+            "description" : "minutos que deben pasar para comenzar esta \ntarea luego de finalizada la antecesora.\n"
+          }
+        }
+      },
+      "tareas_proceso" : {
+        "required" : [ "idProceso" ],
+        "type" : "object",
+        "properties" : {
+          "idProceso" : {
+            "type" : "integer",
+            "description" : "identificador del proceso al que \nse quiere asociar la tarea\n"
+          },
+          "tareaAntecesora" : {
+            "$ref" : "#/components/schemas/tareas_proceso_tareaAntecesora"
+          }
+        }
+      },
+      "body_4" : {
+        "required" : [ "nombre" ],
+        "type" : "object",
+        "properties" : {
+          "nombre" : {
+            "type" : "string",
+            "example" : "Seleccion de la leche"
+          },
+          "observaciones" : {
+            "type" : "string",
+            "description" : "aclaraciones sobre la tarea"
+          },
+          "proceso" : {
+            "$ref" : "#/components/schemas/tareas_proceso"
+          }
+        }
+      },
+      "body_5" : {
+        "required" : [ "producto" ],
+        "type" : "object",
+        "properties" : {
+          "producto" : {
+            "type" : "string"
+          }
+        }
+      },
+      "inline_response_200_7" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "payload" : {
+            "$ref" : "#/components/schemas/inline_response_200_7_payload"
+          },
+          "error" : {
+            "type" : "object",
+            "nullable" : true
+          }
+        }
+      },
+      "inline_response_200_8" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "payload" : {
+            "$ref" : "#/components/schemas/inline_response_200_8_payload"
+          },
+          "error" : {
+            "type" : "object",
+            "nullable" : true
+          }
+        }
+      },
+      "Error_error" : {
+        "type" : "object",
+        "properties" : {
+          "statusCode" : {
+            "type" : "integer",
+            "example" : 400
+          },
+          "error" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          }
+        }
+      },
+      "inline_response_201_payload" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "identificador del usuario creado.",
+            "example" : 391
+          }
+        }
+      },
+      "inline_response_200_1_payload" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "identificador del usuario actualizado.",
+            "example" : 45
+          }
+        }
+      },
+      "inline_response_200_2_payload" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "identificador del usuario eliminado.",
+            "example" : 471
+          }
+        }
+      },
+      "inline_response_201_1_payload" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "identificador del proceso creado.",
+            "example" : 391
+          }
+        }
+      },
+      "inline_response_200_4_payload" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "identificador del proceso actualizado.",
+            "example" : 45
+          }
+        }
+      },
+      "inline_response_200_5_payload" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "identificador del proceso eliminado.",
+            "example" : 111
+          }
+        }
+      },
+      "inline_response_200_7_payload" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "identificador de la tarea actualizada.",
+            "example" : 45
+          }
+        }
+      },
+      "inline_response_200_8_payload" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "identificador de la tarea eliminada.",
+            "example" : 111
+          }
+        }
+      }
+    }
+  }
+}
